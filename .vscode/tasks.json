@@ -1,0 +1,43 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "packages/server watch",
+			"type": "npm",
+			"script": "watch",
+			"path": "packages/server",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}/packages/server"
+				],
+			},
+			"runOptions": {
+				"runOn": "folderOpen",
+			},
+			
+
+		},
+		{
+			"label": "packages/utils watch",
+			"type": "npm",
+			"script": "watch",
+			"path": "packages/utils",
+			"group": "build",
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}/packages/utils"
+				],
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+
+		}
+	]
+}
