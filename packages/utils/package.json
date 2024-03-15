@@ -1,11 +1,18 @@
 {
   "name": "backts-utils",
   "version": "0.1.1",
-  "description": "",
+  "author": "Marc Canaleta",
+  "description": "Backts framework utils package",
+  "license": "ISC",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcanaleta/backts",
+    "directory": "packages/backts-utils"
+  },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
-  "private": false,
   "engines": {
     "node": "20.10"
   },
@@ -22,9 +29,6 @@
     "build": "npm run build:cjs && npm run build:esm",
     "watch": "npm run watch:cjs & npm run watch:esm"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "yup": "^1.4.0"
   }

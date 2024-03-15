@@ -1,9 +1,16 @@
 {
     "name": "backts-client",
     "version": "0.1.0",
-    "description": "",
-    "main": "index.js",
+    "author": "Marc Canaleta",
+    "description": "Backts - client package",
     "private": false,
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mcanaleta/backts",
+        "directory": "packages/backts-client"
+    },
+    "main": "index.js",
     "files": [
         "dist",
         "src",
@@ -11,8 +18,5 @@
     ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    }
 }

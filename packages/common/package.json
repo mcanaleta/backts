@@ -1,11 +1,18 @@
 {
   "name": "backts-common",
   "version": "0.1.1",
-  "description": "",
+  "description": "Backts framework common package",
+  "author": "Marc Canaleta",
+  "license": "ISC",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcanaleta/backts",
+    "directory": "packages/backts-common"
+  },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./src/index.ts",
-  "private": false,
   "files": [
     "dist",
     "src",
@@ -19,9 +26,6 @@
     "watch:cjs": "tsc -p tsconfig.cjs.json --watch",
     "watch": "npm run watch:cjs & npm run watch:esm"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "yup": "^1.4.0"
   },

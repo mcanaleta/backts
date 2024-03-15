@@ -1,8 +1,14 @@
 {
   "name": "@mcanaleta/backts",
   "version": "0.1.0",
-  "description": "",
+  "author": "Marc Canaleta",
+  "description": "Backts - The Typescript Backoffice Framework",
+  "license": "ISC",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcanaleta/backts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,7 +28,4 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.2"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
 }
