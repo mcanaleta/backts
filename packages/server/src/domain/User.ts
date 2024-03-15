@@ -1,4 +1,4 @@
-import { User } from "backts/src/model/User";
+import { User } from "backts-common";
 import { CollectionReference } from "@google-cloud/firestore";
 import { DataBase } from "../database";
 

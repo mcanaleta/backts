@@ -8,6 +8,7 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "private": false,
     "files": [
         "dist",
         "src",
@@ -25,7 +26,7 @@
         "@google-cloud/firestore": "^7.3.0",
         "@google-cloud/storage": "^7.7.0",
         "@trpc/server": "^10.45.1",
-        "backts": "workspace:*",
+        "backts-common": "workspace:*",
         "backts-utils": "workspace:*",
         "cors": "^2.8.5",
         "firebase-admin": "^12.0.0",

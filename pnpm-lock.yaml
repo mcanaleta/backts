@@ -48,7 +48,9 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
 
-  packages/backts:
+  packages/client: {}
+
+  packages/common:
     dependencies:
       yup:
         specifier: ^1.4.0
@@ -82,8 +84,6 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
 
-  packages/client: {}
-
   packages/server:
     dependencies:
       '@google-cloud/firestore':
@@ -95,9 +95,9 @@ importers:
       '@trpc/server':
         specifier: ^10.45.1
         version: 10.45.1
-      backts:
+      backts-common:
         specifier: workspace:*
-        version: link:../backts
+        version: link:../common
       backts-utils:
         specifier: workspace:*
         version: link:../utils
