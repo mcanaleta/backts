@@ -3,6 +3,11 @@
     "version": "0.1.0",
     "description": "",
     "main": "index.js",
+    "files": [
+        "dist",
+        "src",
+        "tsconfig.json",
+    ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

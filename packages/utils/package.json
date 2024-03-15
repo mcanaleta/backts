@@ -8,6 +8,11 @@
   "engines": {
     "node": "20.10"
   },
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json"
+  ],
   "scripts": {
     "build:esm": "tsc",
     "watch:esm": "tsc --watch",

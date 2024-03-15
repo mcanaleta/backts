@@ -10,7 +10,8 @@
     "license": "ISC",
     "files": [
         "dist",
-        "src"
+        "src",
+        "tsconfig.json"
     ],
     "scripts": {
         "build:esm": "tsc",
