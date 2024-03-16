@@ -1,10 +1,9 @@
-import { IncomingMessage, ServerResponse } from "http";
-import { httpReadCookies } from "./lib/nodehttp";
-import { tryOrNull } from "./lib/trycatch";
-import { AppContext } from "./context";
 import { DecodedIdToken } from "firebase-admin/auth";
 import { OAuth2Client, TokenPayload } from "google-auth-library";
-import { BackTsServer } from ".";
+import { IncomingMessage, ServerResponse } from "http";
+import { AppContext } from "./context";
+import { httpReadCookies } from "./lib/nodehttp";
+import { tryOrNull } from "./lib/trycatch";
 
 const oauth2Client = new OAuth2Client();
 

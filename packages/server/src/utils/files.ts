@@ -7,9 +7,9 @@ export async function isFile(filePath: string): Promise<boolean> {
 
     // Return true if the filePath is a file, false otherwise.
     return stats.isFile();
-  } catch (error) {
+  } catch (error: any) {
     // If an error occurs (e.g., the file doesn't exist), log the error and return false.
-    if (error.code !== "ENOENT") {
+    if (error?.code !== "ENOENT") {
       throw error;
     }
 

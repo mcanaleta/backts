@@ -11,6 +11,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
     
     // "inlineSourceMap": true,
     // "inlineSources": true,

@@ -12,9 +12,12 @@ This project is an opinionated framework aimed at simplifying the development of
 
 ## Key technologies
 
+
+### Google Cloud
 This framework strongly relies in Google Cloud. Basically because:
 - It provides one of the best developer experiences.
 - It has unique components like BigQuery and Firestore, which allows great scalability with pay-as-you-go pricing.
+
 
 The following is a list of the key technologies we plan to use:
 
@@ -54,3 +57,12 @@ Our framework is designed to include a comprehensive set of features necessary f
 
 ### Prio 4
 - **VSCode Extension**: Develop an extension for VSCode to streamline the development process further.
+
+## Tech choices
+
+- **TypeScript**: The entire project is written in TypeScript to ensure type safety and a better developer experience. It is the only language that allows us to share types and logic between the frontend and the backend.
+- **TypeScript compiler**: Still not decided. We are considering using TSC or SWC.
+- **Frontend**: React
+- **HTTP Server**: Thin custom server on top of Node HTTP server. We don't like the global aspect of express where every handler is like defining a global variable.
+- **RPC**: gRPC
+- **Database**: Firestore

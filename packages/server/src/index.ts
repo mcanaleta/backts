@@ -1,12 +1,5 @@
-import { createServer } from "http";
-import process from "node:process";
-import { createAuthHandler } from "./handlers/auth";
-import { handleStaticApp } from "./handlers/static";
-import { handlePublic } from "./handlers/public";
-import { createHTTPHandler } from "@trpc/server/adapters/standalone";
-import { AnyRouter } from "@trpc/server";
-import { initTRPC } from "@trpc/server";
-import { AppContext, createAppContext } from "./context";
+import { AnyRouter, initTRPC } from "@trpc/server";
+import { AppContext } from "./context";
 import { RequestContext } from "./requestcontext";
 
 /*
@@ -74,6 +67,6 @@ export type BackTsServer<AppContextType extends AppContext> = {
 
 export * from "./main";
 
+export * from "./context";
 export * from "./database";
 export * from "./requestcontext";
-export * from "./context";

@@ -1,12 +1,11 @@
-import { IncomingMessage, ServerResponse } from "http";
-import { createAuthHandler } from "./handlers/auth";
-import { handleStaticApp } from "./handlers/static";
-import { handlePublic } from "./handlers/public";
-import { createHTTPHandler } from "@trpc/server/adapters/standalone";
-import { AnyRouter } from "@trpc/server";
 import { initTRPC } from "@trpc/server";
-import { AppContext, createAppContext } from "./context";
+import { createHTTPHandler } from "@trpc/server/adapters/standalone";
+import { IncomingMessage, ServerResponse } from "http";
 import { BackTsServer } from ".";
+import { AppContext, createAppContext } from "./context";
+import { createAuthHandler } from "./handlers/auth";
+import { handlePublic } from "./handlers/public";
+import { handleStaticApp } from "./handlers/static";
 import { RequestContext } from "./requestcontext";
 
 export function backTsHandler<AppContextType extends AppContext>(
