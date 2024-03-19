@@ -11,7 +11,7 @@
         "directory": "packages/backts-server"
     },
     "main": "./dist/index.js",
-    "types": "./src/index.ts",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist",
         "src",

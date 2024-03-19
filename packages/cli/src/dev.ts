@@ -1,6 +1,5 @@
-import { PluginOption, createServer } from "vite";
 import react from "@vitejs/plugin-react";
-import * as swc from "@swc/core";
+import { createServer } from "vite";
 
 export async function runDev() {
   await Promise.all([runDevClient(), runDevBackend()]);
@@ -39,55 +38,53 @@ export async function runDevClient() {
 }
 
 export async function runDevBackend() {
-  process.chdir("./packages/server");
-  const transformed = await swc.transformFile("src/index.ts", {
-    jsc: {
-      parser: {
-        syntax: "typescript",
-        decorators: true,
-      },
-      transform: {
-        decoratorVersion: "2022-03",
-      },
-      target: "es2019",
-      baseUrl: "src",
-      paths: {
-        "@server/*": ["*"],
-      },
-    },
-    module: {
-      type: "commonjs",
-    },
-    sourceMaps: true,
-  });
-  const server = await createServer({
-    configFile: false,
-    plugins: [
-      {
-        name: "backend",
-        configureServer(server) {
-          server.middlewares.use((req, res, next) => {
-            console.log("middleware", req.url);
-            next();
-          });
-        },
-      },
-    ],
-    build: {
-      rollupOptions: {
-        external: ["src/client/**"],
-      },
-    },
-    resolve: {
-      alias: {
-        "@server": "/src",
-      },
-    },
-  });
-
-  await server.listen();
-
-  server.printUrls();
-  server.bindCLIShortcuts({ print: true });
-  process.chdir("../..");
+  // process.chdir("./packages/server");
+  // const transformed = await swc.transformFile("src/index.ts", {
+  //   jsc: {
+  //     parser: {
+  //       syntax: "typescript",
+  //       decorators: true,
+  //     },
+  //     transform: {
+  //       decoratorVersion: "2022-03",
+  //     },
+  //     target: "es2019",
+  //     baseUrl: "src",
+  //     paths: {
+  //       "@server/*": ["*"],
+  //     },
+  //   },
+  //   module: {
+  //     type: "commonjs",
+  //   },
+  //   sourceMaps: true,
+  // });
+  // const server = await createServer({
+  //   configFile: false,
+  //   plugins: [
+  //     {
+  //       name: "backend",
+  //       configureServer(server) {
+  //         server.middlewares.use((req, res, next) => {
+  //           console.log("middleware", req.url);
+  //           next();
+  //         });
+  //       },
+  //     },
+  //   ],
+  //   build: {
+  //     rollupOptions: {
+  //       external: ["src/client/**"],
+  //     },
+  //   },
+  //   resolve: {
+  //     alias: {
+  //       "@server": "/src",
+  //     },
+  //   },
+  // });
+  // await server.listen();
+  // server.printUrls();
+  // server.bindCLIShortcuts({ print: true });
+  // process.chdir("../..");
 }
