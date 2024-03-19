@@ -61,8 +61,8 @@ Our framework is designed to include a comprehensive set of features necessary f
 ## Tech choices
 
 - **TypeScript**: The entire project is written in TypeScript to ensure type safety and a better developer experience. It is the only language that allows us to share types and logic between the frontend and the backend.
-- **TypeScript compiler**: Still not decided. We are considering using TSC or SWC.
+- **TypeScript tools**: Tsup, turborepo, esbuild.
 - **Frontend**: React
-- **HTTP Server**: Thin custom server on top of Node HTTP server. We don't like the global aspect of express where every handler is like defining a global variable.
-- **RPC**: gRPC
+- **HTTP Server**: Thin custom server on top of Node HTTP server. We don't like the global aspect of express where every handler is like defining a global variable, and we like low-level control over the server.
+- **RPC**: tRPC
 - **Database**: Firestore

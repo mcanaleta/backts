@@ -26,6 +26,8 @@
     "rollup": "^4.12.1",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "esbuild-plugin-raw": "^0.1.8",
+    "tsup": "^8.0.2"
   }
 }

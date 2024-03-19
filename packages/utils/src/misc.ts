@@ -4,4 +4,5 @@ export function deleteUndefinedFields(obj: any) {
       delete obj[key];
     }
   }
+  return obj;
 }

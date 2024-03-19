@@ -1,6 +1,6 @@
 {
   "name": "backts-utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Marc Canaleta",
   "description": "Backts framework utils package",
   "license": "ISC",
@@ -10,9 +10,9 @@
     "url": "https://github.com/mcanaleta/backts",
     "directory": "packages/backts-utils"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
   "engines": {
     "node": "20.10"
   },
@@ -22,12 +22,12 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build:esm": "tsc",
-    "watch:esm": "tsc --watch",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "watch:cjs": "tsc -p tsconfig.cjs.json --watch",
-    "build": "npm run build:cjs && npm run build:esm",
-    "watch": "npm run watch:cjs & npm run watch:esm"
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "jest"
   },
   "dependencies": {
     "yup": "^1.4.0"

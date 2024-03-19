@@ -1,26 +1,34 @@
-import { initTRPC } from "@trpc/server";
 import { createHTTPHandler } from "@trpc/server/adapters/standalone";
-import { IncomingMessage, ServerResponse } from "http";
+import { Lazy } from "backts-utils";
+import { IncomingMessage, ServerResponse, createServer } from "http";
+import { createProxyServer } from "http-proxy";
 import { BackTsServer } from ".";
 import { AppContext, createAppContext } from "./context";
 import { createAuthHandler } from "./handlers/auth";
 import { handlePublic } from "./handlers/public";
 import { handleStaticApp } from "./handlers/static";
 import { RequestContext } from "./requestcontext";
+import { handleUnauthorized } from "./handlers/exceptions";
+
+const devProxy = new Lazy(async () =>
+  createProxyServer({ target: "http://localhost:5173", ws: true })
+);
 
 export function backTsHandler<AppContextType extends AppContext>(
   config: BackTsServer<AppContextType>
 ) {
-  const { authHandler, handleLoginPage } = createAuthHandler(config.firebase);
+  const { authHandler, handleLoginPage } = createAuthHandler(config);
 
   const appContext = config.appContext(
     createAppContext(config, handleLoginPage)
   );
 
-  const trpcContext = initTRPC.create();
-  const router = config.createApi(trpcContext, appContext);
+  const router = config.createRouter(appContext);
   const trpcHandler = createHTTPHandler({
     router,
+    onError({ error }) {
+      console.error(error);
+    },
   });
   const handler = async (
     req: IncomingMessage,
@@ -28,7 +36,6 @@ export function backTsHandler<AppContextType extends AppContext>(
   ) => {
     try {
       const reqctx = new RequestContext(req, res, appContext);
-
       await reqctx.initUser();
       await reqctx.initOidcToken();
 
@@ -37,20 +44,48 @@ export function backTsHandler<AppContextType extends AppContext>(
           return authHandler(reqctx);
         case "trpc":
           // TODO: auth
-          req.url = reqctx.path.replace(/^\/trpc/, "");
-          return trpcHandler(req, res);
+          if (reqctx.user) {
+            req.url = reqctx.path.replace(/^\/trpc/, "");
+            return trpcHandler(req, res);
+          } else {
+            return handleUnauthorized(reqctx);
+          }
         case "public":
           return await handlePublic(reqctx);
         default:
-          return await handleStaticApp(reqctx);
+          if (reqctx.user) {
+            if (process.env.NODE_ENV === "development") {
+              (await devProxy.get()).web(req, res);
+            } else {
+              return await handleStaticApp(reqctx);
+            }
+          } else {
+            return await handleLoginPage(reqctx);
+          }
       }
     } catch (e) {
-      console.log("erriririri");
       console.error(e);
-      console.log("erriririri");
       res.statusCode = 500;
       res.end();
     }
   };
   return handler;
+}
+
+export function createBackTsServer<AppContextType extends AppContext>(
+  config: BackTsServer<AppContextType>
+) {
+  const handler = backTsHandler(config);
+  const server = createServer(handler);
+
+  server.on("upgrade", (req, socket, head) => {
+    if (process.env.NODE_ENV === "development") {
+      (async () => {
+        (await devProxy.get()).ws(req, socket, head);
+      })();
+    } else {
+      socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
+    }
+  });
+  return server;
 }

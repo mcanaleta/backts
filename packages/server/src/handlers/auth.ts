@@ -1,11 +1,12 @@
 import { Lazy } from "backts-utils";
-import { readFile } from "fs/promises";
-import { FirebaseConfig } from "..";
+import { BackTsServer, FirebaseConfig } from "..";
 import { httpReadJsonBody } from "../lib/nodehttp";
 import { handleUnauthorized } from "./exceptions";
 import { RequestContext } from "../requestcontext";
+import loginTemplate from "../assets/login.html?raw";
+
 // import { fbAuth } from "./fb";
-export function createAuthHandler(config: FirebaseConfig) {
+export function createAuthHandler(config: BackTsServer<any>) {
   async function authHandler(reqctx: RequestContext) {
     if (reqctx.pathParts[1] == "login" && reqctx.isPost) {
       return await handleLogin(reqctx);
@@ -16,6 +17,21 @@ export function createAuthHandler(config: FirebaseConfig) {
   }
 
   async function handleLogin(reqctx: RequestContext) {
+    async function getRoleFromDb(email: string) {
+      const dbUser = await reqctx.appContext.models.usersModel.col
+        .doc(email)
+        .get()
+        .then((doc) => doc.data());
+      if (!dbUser) {
+        return null;
+      }
+      const role = dbUser.role;
+      if (!role) {
+        return null;
+      }
+      return role;
+    }
+
     const body = await httpReadJsonBody(reqctx.req);
     const res = reqctx.res;
     if (body.idtoken) {
@@ -23,17 +39,15 @@ export function createAuthHandler(config: FirebaseConfig) {
       if (!user.email || !user.email_verified) {
         return handleUnauthorized(reqctx);
       }
-      const dbUser = await reqctx.appContext.models.usersModel.col
-        .doc(user.email)
-        .get()
-        .then((doc) => doc.data());
-      if (!dbUser) {
-        return handleUnauthorized(reqctx);
-      }
-      const role = dbUser.role;
+      const role =
+        user.email == config.adminEmail
+          ? "sysadmin"
+          : await getRoleFromDb(user.email);
+
       if (!role) {
         return handleUnauthorized(reqctx);
       }
+
       await reqctx.appContext.fbAuth.setCustomUserClaims(user.uid, { role });
       console.log(`setting cookie idtoken`);
       res.setHeader(
@@ -46,11 +60,14 @@ export function createAuthHandler(config: FirebaseConfig) {
   }
 
   const loginContents = new Lazy(async () => {
-    const loginTemplate = await readFile("./serverassets/login.html", "utf8");
-    const loginContents = loginTemplate.replace(
-      "// SERVER_FIREBASE_CONFIG_PLACEHOLDER",
-      `const firebaseConfig = ${JSON.stringify(config)}`
-    );
+    console.log(`thisFileDir: ${__dirname}`);
+    const loginContents = loginTemplate
+      .replace(
+        "// SERVER_FIREBASE_CONFIG_PLACEHOLDER",
+        `const firebaseConfig = ${JSON.stringify(config.firebase)}`
+      )
+      .replace("TITLE_PLACEHOLDER", config.title);
+
     return loginContents;
   });
 

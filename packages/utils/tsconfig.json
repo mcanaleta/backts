@@ -1,20 +1,25 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
   "compilerOptions": {
-    "outDir": "./dist/esm",
-    "module": "ESNext", 
-    "target": "ESNext",
+    "composite": false,
     "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "verbatimModuleSyntax": false, // TODO: set to true... https://devblogs.microsoft.com/typescript/announcing-typescript-5-0-beta/#verbatimmodulesyntax
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "strictNullChecks": true,
+    "target": "ES2022"
   },
-  "include": ["src"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["node_modules"]
 }

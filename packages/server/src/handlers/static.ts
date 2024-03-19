@@ -8,9 +8,6 @@ export async function handleStaticApp(reqctx: RequestContext) {
   if (!reqctx.isGet) {
     return handleMethodNotAllowed(reqctx);
   }
-  if (!reqctx.user) {
-    return reqctx.appContext.handleLoginPage(reqctx);
-  }
   const { req, res } = reqctx;
   const path = req.url!.split("?")[0];
   if (!path.startsWith("/") || path.includes("../")) {

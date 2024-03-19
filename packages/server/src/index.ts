@@ -26,7 +26,7 @@ export type FirebaseConfig = {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
-  measurementId: string;
+  measurementId?: string;
 };
 
 export type TRPCContext = ReturnType<typeof initTRPC.create>;
@@ -47,10 +47,7 @@ export type BackTsServer<AppContextType extends AppContext> = {
    * @param trpcContext - The TRPC context.
    * @returns The API router.
    */
-  createApi: (
-    trpcContext: TRPCContext,
-    appContext: AppContextType
-  ) => AnyRouter;
+  createRouter: (appContext: AppContextType) => AnyRouter;
 
   /**
    * The Firebase configuration.
@@ -63,6 +60,9 @@ export type BackTsServer<AppContextType extends AppContext> = {
    * @returns The typed application context.
    */
   appContext: (base: AppContext) => AppContextType;
+
+  title: string;
+  adminEmail: string;
 };
 
 export * from "./main";
