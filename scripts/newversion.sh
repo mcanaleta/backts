@@ -3,30 +3,34 @@
 set -e
 set -x
 
-# Check if git repository is clean
-if [[ -n $(git status -s) ]]; then
-    echo "Error: Git repository is not clean"
-    exit 1
-fi
-
-
 
 pnpm run build
-cd packages/common
-npm version patch
-cd ../server
-npm version patch
-cd ../client
-npm version patch
-cd ../..
-git add .
-git commit -m "new version"
-cd packages/common
-pnpm publish
-cd ../server
-pnpm publish
-cd ../client
-pnpm publish
-cd ../..
+# Array of package names
+packages=("common" "server" "client" "utils")
 
-echo "New version published, ready to push"
+# Function to check changes, update version, and publish
+update_and_publish() {
+    local package_name=$1
+    cd "packages/${package_name}"
+
+    # Check if there are changes in the package
+    if [[ -n $(git status -s) ]]; then
+        # If changes exist, patch version, commit, and publish
+        npm version patch
+        git add .
+        git commit -m "new version of ${package_name}"
+        pnpm publish
+    else
+        echo "No changes in ${package_name}, skipping."
+    fi
+
+    # Return to the root directory
+    cd ../..
+}
+
+# Iterate over each package and apply updates if necessary
+for package in "${packages[@]}"; do
+    update_and_publish "${package}"
+done
+
+echo "Version updates and publishing completed where necessary."
