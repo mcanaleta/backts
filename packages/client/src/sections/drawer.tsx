@@ -61,7 +61,7 @@ export function DHDrawer(props: { width: number } & BackTsProps) {
           .filter((p) => !p?.path?.includes(":"))
           .map((page: any) => (
             <MenuItem
-              key={page.path}
+              key={page.title}
               icon={page.icon || Home}
               text={page.title}
               href={page.path}
@@ -71,10 +71,10 @@ export function DHDrawer(props: { width: number } & BackTsProps) {
         {/* <MenuItem icon={MailIcon} text="TOP 25" href="/top25" /> */}
         {/* <MenuItem icon={MailIcon} text="Schedule" href="/schedule" /> */}
       </List>
-      <Divider sx={{ mt: "auto" }} />
+      {/* <Divider sx={{ mt: "auto" }} />
       <List>
         <MenuItem icon={LogoutIcon} text="Sign Out" href="/api/auth/signout" />
-      </List>
+      </List> */}
     </Drawer>
   );
 }

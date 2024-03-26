@@ -3,7 +3,7 @@ import { Header } from "@client/sections/header";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Outlet } from "react-router-dom";
-import { BackTsProps } from ".";
+import { BackTsProps, useGlobalContext } from ".";
 // import { Outlet } from "react-router-dom";
 
 const DRAWER_WIDTH = 240;

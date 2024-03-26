@@ -4,6 +4,7 @@ import Layout from "./layout";
 import ReactDOM from "react-dom/client";
 import React from "react";
 import { initFirebase } from "./utils/firebase.utils";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 export type BackTsPage = {
   path: string;
@@ -40,6 +41,15 @@ export function BackTs(props: BackTsProps) {
   return <RouterProvider router={router} />;
 }
 
+const theme = createTheme({
+  // palette: {
+  //   action: {
+  //     disabled: "white",
+  //     disabledBackground: "#4040ff",
+  //   },
+  // },
+});
+
 export function renderBackTs(props: BackTsProps) {
   const fsInit = initFirebase({
     projectId: props.projectId,
@@ -49,9 +59,11 @@ export function renderBackTs(props: BackTsProps) {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <Wrapper>
-        <GlobalContextProvider firebaseInit={fsInit}>
-          <BackTs {...props} />
-        </GlobalContextProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalContextProvider firebaseInit={fsInit}>
+            <BackTs {...props} />
+          </GlobalContextProvider>
+        </ThemeProvider>
       </Wrapper>
     </React.StrictMode>
   );

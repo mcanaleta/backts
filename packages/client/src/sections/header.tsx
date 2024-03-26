@@ -6,9 +6,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { BackTsProps } from "..";
 import { useGlobalContext } from "@client/contexts/global.context";
+import { LinearProgress } from "@mui/material";
 
 export function Header(props: BackTsProps) {
-  const { user, logout, claims } = useGlobalContext();
+  const { user, logout, claims, loading } = useGlobalContext();
   return (
     <AppBar position="fixed" sx={{ zIndex: 2000 }}>
       <Toolbar sx={{ backgroundColor: "background.paper" }}>
@@ -37,6 +38,7 @@ export function Header(props: BackTsProps) {
           LOGOUT
         </Button>
       </Toolbar>
+      {loading && <LinearProgress />}
     </AppBar>
   );
 }

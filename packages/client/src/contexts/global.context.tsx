@@ -18,6 +18,8 @@ export function useGlobalContext() {
 function useGlobalContextInit({ fbApp, fbFirestore, fbAuth }: FirebaseInit) {
   const [user, setUser] = useState<User | null>();
   const [claims, setClaims] = useState<ParsedToken | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [lastError, setLastError] = useState<any | null>(null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(fbAuth, (newUser) => {
@@ -45,12 +47,28 @@ function useGlobalContextInit({ fbApp, fbFirestore, fbAuth }: FirebaseInit) {
     window.location.href = "/";
   }
 
+  async function runAsync(fn: () => Promise<any>) {
+    try {
+      setLoading(true);
+      console.log("runAsync");
+      setLastError(null);
+      await fn();
+    } catch (error: any) {
+      setLastError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return {
     fbApp,
     firestore: fbFirestore,
     user,
     logout,
     claims,
+    runAsync,
+    loading,
+    lastError,
   };
 }
 
