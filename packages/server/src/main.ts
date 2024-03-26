@@ -8,7 +8,7 @@ import { createAuthHandler } from "./handlers/auth";
 import { handlePublic } from "./handlers/public";
 import { handleStaticApp } from "./handlers/static";
 import { RequestContext } from "./requestcontext";
-import { handleUnauthorized } from "./handlers/exceptions";
+import { handleNotFound, handleUnauthorized } from "./handlers/exceptions";
 
 const devProxy = new Lazy(async () =>
   createProxyServer({ target: "http://localhost:5173", ws: true })
@@ -52,6 +52,12 @@ export function backTsHandler<AppContextType extends AppContext>(
           }
         case "public":
           return await handlePublic(reqctx);
+        case "api":
+          if (config.apiHandler) {
+            return await config.apiHandler(reqctx);
+          } else {
+            return handleNotFound(reqctx);
+          }
         default:
           if (reqctx.user) {
             if (process.env.NODE_ENV === "development") {

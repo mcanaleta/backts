@@ -60,6 +60,7 @@ export type BackTsServer<AppContextType extends AppContext> = {
    * @returns The typed application context.
    */
   appContext: (base: AppContext) => AppContextType;
+  apiHandler?: (reqctx: RequestContext) => Promise<void>;
 
   title: string;
   adminEmail: string;
@@ -70,3 +71,4 @@ export * from "./main";
 export * from "./context";
 export * from "./database";
 export * from "./requestcontext";
+export * from "./handlers/exceptions";
