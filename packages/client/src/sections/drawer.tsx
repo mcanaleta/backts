@@ -1,4 +1,4 @@
-import CalendarMonth from "@mui/icons-material/CalendarMonth";
+import Home from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -56,14 +56,17 @@ export function DHDrawer(props: { width: number } & BackTsProps) {
         {/* <MenuItem icon={CalendarMonth} text="Episodes" href="/episodes" />
         <MenuItem icon={PodcastsIcon} text="Shows" href="/shows" />
         <MenuItem icon={PodcastsIcon} text="Ivoox" href="/ivoox" /> */}
-        {props.pages.map((page) => (
-          <MenuItem
-            key={page.path}
-            icon={CalendarMonth}
-            text={page.title}
-            href={page.path}
-          />
-        ))}
+        {props.pages
+          .map((p) => p as any)
+          .filter((p) => !p?.path?.includes(":"))
+          .map((page: any) => (
+            <MenuItem
+              key={page.path}
+              icon={page.icon || Home}
+              text={page.title}
+              href={page.path}
+            />
+          ))}
         {/* <MenuItem icon={PodcastsIcon} text="Podcasts" href="/podcasts" /> */}
         {/* <MenuItem icon={MailIcon} text="TOP 25" href="/top25" /> */}
         {/* <MenuItem icon={MailIcon} text="Schedule" href="/schedule" /> */}

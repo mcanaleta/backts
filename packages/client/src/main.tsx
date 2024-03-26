@@ -1,8 +1,8 @@
+import { GlobalContextProvider } from "./contexts/global.context";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./layout";
 import ReactDOM from "react-dom/client";
 import React from "react";
-import { GlobalContextProvider } from "./contexts/global.context";
 import { initFirebase } from "./utils/firebase.utils";
 
 export type BackTsPage = {

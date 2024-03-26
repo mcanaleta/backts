@@ -27,7 +27,7 @@ export function Header(props: BackTsProps) {
           login
         </Button> */}
         <Typography sx={{ flex: 1 }} />
-        <Typography color="black">{`${user?.email} / ${claims?.role}`}</Typography>
+        <Typography color="black">{`${user?.email} / ${claims?.role} / ${user?.uid}`}</Typography>
 
         <Button
           variant="contained"
