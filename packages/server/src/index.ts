@@ -1,6 +1,7 @@
 import { AnyRouter, initTRPC } from "@trpc/server";
 import { AppContext } from "./context";
 import { RequestContext } from "./requestcontext";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 /*
 /auth: login, logout, ...
@@ -61,9 +62,9 @@ export type BackTsServer<AppContextType extends AppContext> = {
    */
   appContext: (base: AppContext) => AppContextType;
   apiHandler?: (reqctx: RequestContext) => Promise<void>;
+  authVerifier?: (token: DecodedIdToken) => Promise<string | null>;
 
   title: string;
-  adminEmail: string;
 };
 
 export * from "./main";

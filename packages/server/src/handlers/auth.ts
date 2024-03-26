@@ -39,11 +39,11 @@ export function createAuthHandler(config: BackTsServer<any>) {
       if (!user.email || !user.email_verified) {
         return handleUnauthorized(reqctx);
       }
-      const role =
-        user.email == config.adminEmail
-          ? "sysadmin"
-          : await getRoleFromDb(user.email);
+      const role = config.authVerifier
+        ? await config.authVerifier(user)
+        : await getRoleFromDb(user.email);
 
+      console.log(`role: ${role}`);
       if (!role) {
         return handleUnauthorized(reqctx);
       }

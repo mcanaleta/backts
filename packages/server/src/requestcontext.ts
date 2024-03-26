@@ -42,9 +42,11 @@ export class RequestContext {
     if (!user || !user.email || !user.email_verified) {
       return null;
     }
-    if (user.email != "marc@cloudnumbers.net") {
+
+    if (!user.role) {
       return null;
     }
+
     this.user = user;
   }
 
