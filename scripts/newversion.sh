@@ -22,7 +22,7 @@ update_and_publish() {
         npm version patch
         git add .
         git commit -m "new version of ${package_name}"
-        pnpm publish --access public
+        pnpm publish --access public --no-git-checks
     fi
 
     # Return to the root directory
