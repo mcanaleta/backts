@@ -53,7 +53,9 @@ function useGlobalContextInit({ fbApp, fbFirestore, fbAuth }: FirebaseInit) {
       console.log("runAsync");
       setLastError(null);
       await fn();
+      console.log("runAsync done");
     } catch (error: any) {
+      console.error("runAsync", error);
       setLastError(error);
     } finally {
       setLoading(false);

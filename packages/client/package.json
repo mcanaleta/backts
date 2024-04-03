@@ -1,6 +1,6 @@
 {
     "name": "backts-client",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "author": "Marc Canaleta",
     "description": "Backts - client package",
     "private": false,
@@ -48,8 +48,6 @@
         "@mui/icons-material": "^5.15.10",
         "@mui/material": "^5.15.10",
         "@tanstack/react-query": "^5.22.2",
-        "@trpc/client": "^10.45.1",
-        "@trpc/server": "^10.45.1",
         "firebase": "10.9.0",
         "formik": "^2.4.5",
         "formik-mui": "5.0.0-alpha.0",
