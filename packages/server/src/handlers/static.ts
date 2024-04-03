@@ -1,10 +1,12 @@
-import { lookup } from "mime-types";
 import { streamDiskFile } from "../lib/nodehttp";
 import { handleBadRequest, handleMethodNotAllowed } from "./exceptions";
 import { isFile } from "../utils/files";
 import { RequestContext } from "../requestcontext";
+import { AppContext } from "..";
 
-export async function handleStaticApp(reqctx: RequestContext) {
+export async function handleStaticApp<TA extends AppContext>(
+  reqctx: RequestContext<TA>
+) {
   if (!reqctx.isGet) {
     return handleMethodNotAllowed(reqctx);
   }
@@ -17,9 +19,7 @@ export async function handleStaticApp(reqctx: RequestContext) {
   const pathToRead = (await isFile(filePath))
     ? filePath
     : "../client/dist/index.html";
-  const extension = pathToRead.split(".").pop() || "";
-  const mimeType = lookup(extension) || "application/octet-stream";
-  res.setHeader("Content-Type", mimeType);
+
   if (path.startsWith("/assets")) {
     res.setHeader("Cache-Control", "max-age=31536000");
   } else {

@@ -1,4 +1,3 @@
-import { createHTTPHandler } from "@trpc/server/adapters/standalone";
 import { Lazy } from "backts-utils";
 import { IncomingMessage, ServerResponse, createServer } from "http";
 import { createProxyServer } from "http-proxy";
@@ -23,13 +22,6 @@ export function backTsHandler<AppContextType extends AppContext>(
     createAppContext(config, handleLoginPage)
   );
 
-  const router = config.createRouter(appContext);
-  const trpcHandler = createHTTPHandler({
-    router,
-    onError({ error }) {
-      console.error(error);
-    },
-  });
   const handler = async (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage>
@@ -42,14 +34,6 @@ export function backTsHandler<AppContextType extends AppContext>(
       switch (reqctx.pathParts[0]) {
         case "auth":
           return authHandler(reqctx);
-        case "trpc":
-          // TODO: auth
-          if (reqctx.user) {
-            req.url = reqctx.path.replace(/^\/trpc/, "");
-            return trpcHandler(req, res);
-          } else {
-            return handleUnauthorized(reqctx);
-          }
         case "public":
           return await handlePublic(reqctx);
         case "api":

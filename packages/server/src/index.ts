@@ -1,4 +1,3 @@
-import { AnyRouter, initTRPC } from "@trpc/server";
 import { AppContext } from "./context";
 import { RequestContext } from "./requestcontext";
 import { DecodedIdToken } from "firebase-admin/auth";
@@ -29,8 +28,6 @@ export type FirebaseConfig = {
   appId: string;
   measurementId?: string;
 };
-
-export type TRPCContext = ReturnType<typeof initTRPC.create>;
 /**
  * Represents the BackTsServer configuration.
  * @template AppContextType - The type of the application context.
@@ -41,14 +38,7 @@ export type BackTsServer<AppContextType extends AppContext> = {
    * @param reqctx - The request context.
    * @returns A promise that resolves when the authentication is complete.
    */
-  auth: (reqctx: RequestContext) => Promise<void>;
-
-  /**
-   * Creates the API router.
-   * @param trpcContext - The TRPC context.
-   * @returns The API router.
-   */
-  createRouter: (appContext: AppContextType) => AnyRouter;
+  auth: (reqctx: RequestContext<AppContextType>) => Promise<void>;
 
   /**
    * The Firebase configuration.
@@ -61,7 +51,7 @@ export type BackTsServer<AppContextType extends AppContext> = {
    * @returns The typed application context.
    */
   appContext: (base: AppContext) => AppContextType;
-  apiHandler?: (reqctx: RequestContext) => Promise<void>;
+  apiHandler?: (reqctx: RequestContext<AppContextType>) => Promise<void>;
   authVerifier?: (token: DecodedIdToken) => Promise<string | null>;
 
   title: string;
@@ -73,3 +63,4 @@ export * from "./context";
 export * from "./database";
 export * from "./requestcontext";
 export * from "./handlers/exceptions";
+export * from "./lib/nodehttp";

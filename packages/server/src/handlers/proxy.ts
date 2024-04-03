@@ -1,7 +1,8 @@
 import { RequestContext } from "..";
 import * as http from "http";
+import { AnyRequestContext } from "../../dist";
 
-export async function handleFrontendDev(reqctx: RequestContext) {
+export async function handleFrontendDev(reqctx: AnyRequestContext) {
   // proxy to localhost:5173
   const parsedUrl = new URL("http://localhost:5173");
   console.log("Proxying path to frontend dev server:", reqctx.path);

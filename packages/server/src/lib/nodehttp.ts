@@ -4,6 +4,7 @@ import { pipeline } from "stream";
 import { promisify } from "util";
 import { createGzip } from "zlib";
 const pump = promisify(pipeline);
+import { lookup } from "mime-types";
 
 export async function readBody(req: IncomingMessage) {
   return new Promise<string>((resolve, reject) => {
@@ -37,6 +38,10 @@ export async function streamDiskFile(
   req: IncomingMessage,
   res: ServerResponse
 ) {
+  const extension = filePath.split(".").pop() || "";
+  const mimeType = lookup(extension) || "application/octet-stream";
+  res.setHeader("Content-Type", mimeType);
+
   const acceptsGzip = req.headers["accept-encoding"]?.includes("gzip");
   const stream = createReadStream(filePath);
   const gzip = createGzip();

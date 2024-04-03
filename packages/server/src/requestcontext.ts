@@ -7,7 +7,7 @@ import { tryOrNull } from "./lib/trycatch";
 
 const oauth2Client = new OAuth2Client();
 
-export class RequestContext {
+export class RequestContext<AppContextType extends AppContext> {
   host: string;
   url: URL;
   path: string;
@@ -22,7 +22,7 @@ export class RequestContext {
   constructor(
     public req: IncomingMessage,
     public res: ServerResponse<IncomingMessage>,
-    public appContext: AppContext
+    public appContext: AppContextType
   ) {
     this.host = req.headers.host || "localhost";
     this.url = new URL("http://" + this.host + req.url);
@@ -82,3 +82,5 @@ export class RequestContext {
     this.oidcToken = payload;
   }
 }
+
+export type AnyRequestContext = RequestContext<AppContext>;
