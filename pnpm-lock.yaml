@@ -150,12 +150,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.22.2
         version: 5.28.4(react@18.2.0)
-      '@trpc/client':
-        specifier: ^10.45.1
-        version: 10.45.2(@trpc/server@10.45.2)
-      '@trpc/server':
-        specifier: ^10.45.1
-        version: 10.45.2
       firebase:
         specifier: 10.9.0
         version: 10.9.0
@@ -281,9 +275,6 @@ importers:
       '@google-cloud/storage':
         specifier: ^7.7.0
         version: 7.8.0
-      '@trpc/server':
-        specifier: ^10.45.1
-        version: 10.45.1
       backts-common:
         specifier: workspace:*
         version: link:../common
@@ -336,6 +327,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
+      '@types/mime-types':
+        specifier: ^2.1.4
+        version: 2.1.4
       jest:
         specifier: ^29.7.0
         version: 29.7.0
@@ -2563,22 +2557,6 @@ packages:
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
-    dev: false
-
-  /@trpc/client@10.45.2(@trpc/server@10.45.2):
-    resolution: {integrity: sha512-ykALM5kYWTLn1zYuUOZ2cPWlVfrXhc18HzBDyRhoPYN0jey4iQHEFSEowfnhg1RvYnrAVjNBgHNeSAXjrDbGwg==}
-    peerDependencies:
-      '@trpc/server': 10.45.2
-    dependencies:
-      '@trpc/server': 10.45.2
-    dev: false
-
-  /@trpc/server@10.45.1:
-    resolution: {integrity: sha512-KOzBEVaHW9IxEedUP9E50y0tYxAuvlzyjn80Bpemw4rcNbT4WtJnhkFPUY+qDJl7Crt3B/oY2qMgSxVWi9toLg==}
-    dev: false
-
-  /@trpc/server@10.45.2:
-    resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
     dev: false
 
   /@tsconfig/node10@1.0.9:
