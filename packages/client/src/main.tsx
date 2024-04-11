@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import { initFirebase } from "./utils/firebase.utils";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { SearchResult } from ".";
 
 export type BackTsPage = {
   path: string;
@@ -22,6 +23,7 @@ export type BackTsProps = {
     appId: string;
     measurementId?: string;
   };
+  generateSearchOptions?: (pattern: string) => SearchResult[];
 };
 
 export function BackTs(props: BackTsProps) {
@@ -56,11 +58,12 @@ export function renderBackTs(props: BackTsProps) {
     firebaseConfig: props.firebaseConfig,
   });
   const Wrapper = props.wrapper || (({ children }) => children);
+  console.log(`wrapper? ${!!props.wrapper}`);
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <Wrapper>
         <ThemeProvider theme={theme}>
-          <GlobalContextProvider firebaseInit={fsInit}>
+          <GlobalContextProvider firebaseInit={fsInit} config={props}>
             <BackTs {...props} />
           </GlobalContextProvider>
         </ThemeProvider>

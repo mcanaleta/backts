@@ -58,7 +58,7 @@ export function DHDrawer(props: { width: number } & BackTsProps) {
         <MenuItem icon={PodcastsIcon} text="Ivoox" href="/ivoox" /> */}
         {props.pages
           .map((p) => p as any)
-          .filter((p) => !p?.path?.includes(":"))
+          .filter((p) => p.title && !p?.path?.includes(":"))
           .map((page: any) => (
             <MenuItem
               key={page.title}

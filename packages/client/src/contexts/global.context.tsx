@@ -4,6 +4,7 @@ import { createContext, useContext } from "react";
 import { ParsedToken, User, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { FirebaseInit } from "@client/utils/firebase.utils";
+import { BackTsProps } from "..";
 
 // Initialize Firebase
 
@@ -15,7 +16,10 @@ export function useGlobalContext() {
   return useContext(GlobalContext);
 }
 
-function useGlobalContextInit({ fbApp, fbFirestore, fbAuth }: FirebaseInit) {
+function useGlobalContextInit(
+  { fbApp, fbFirestore, fbAuth }: FirebaseInit,
+  config: BackTsProps
+) {
   const [user, setUser] = useState<User | null>();
   const [claims, setClaims] = useState<ParsedToken | null>(null);
   const [loading, setLoading] = useState(false);
@@ -71,6 +75,7 @@ function useGlobalContextInit({ fbApp, fbFirestore, fbAuth }: FirebaseInit) {
     runAsync,
     loading,
     lastError,
+    config,
   };
 }
 
@@ -79,11 +84,13 @@ export type GlobalContextType = ReturnType<typeof useGlobalContextInit>;
 export function GlobalContextProvider({
   firebaseInit,
   children,
+  config,
 }: {
   firebaseInit: FirebaseInit;
   children: React.ReactNode;
+  config: BackTsProps;
 }) {
-  const ctx = useGlobalContextInit(firebaseInit);
+  const ctx = useGlobalContextInit(firebaseInit, config);
   return ctx.user ? (
     <GlobalContext.Provider value={ctx}>{children}</GlobalContext.Provider>
   ) : ctx.user === null ? (

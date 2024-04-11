@@ -58,13 +58,22 @@ export function useFirestoreQuery<T>(
   return { docs, data, loading };
 }
 
-export function useFirestoreDoc<T>(path: string) {
+export function useFirestoreDoc<T>({
+  path,
+  enabled,
+}: {
+  path: string;
+  enabled?: boolean;
+}) {
   const [snapshot, setSnapshot] = useState<DocumentSnapshot<T>>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [data, setData] = useState<T>();
   const firebase = useGlobalContext();
 
   useEffect(() => {
+    if (enabled === false) {
+      return;
+    }
     const unsubscribe = onSnapshot(
       doc(firebase.firestore, path) as DocumentReference<T>,
       (s) => {
@@ -77,7 +86,7 @@ export function useFirestoreDoc<T>(path: string) {
     return () => {
       unsubscribe();
     };
-  }, [path, firebase.firestore]);
+  }, [path, firebase.firestore, enabled]);
 
   return { snapshot, loading, data };
 }

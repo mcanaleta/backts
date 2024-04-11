@@ -1,15 +1,17 @@
 // import { useGlobalContext } from "@client/contexts/global.context";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AppBar from "@mui/material/AppBar";
-import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { BackTsProps } from "..";
 import { useGlobalContext } from "@client/contexts/global.context";
-import { LinearProgress } from "@mui/material";
+import { Box, IconButton, LinearProgress, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountMenu from "./accountmenu";
+import { Search } from "./search";
 
 export function Header(props: BackTsProps) {
-  const { user, logout, claims, loading } = useGlobalContext();
+  const { loading } = useGlobalContext();
   return (
     <AppBar position="fixed" sx={{ zIndex: 2000 }}>
       <Toolbar sx={{ backgroundColor: "background.paper" }}>
@@ -20,23 +22,25 @@ export function Header(props: BackTsProps) {
           {props.title}
         </Typography>
 
-        {/* <Button
-          variant="contained"
-          href="/auth/signin"
-          style={{ marginLeft: 30 }}
-        >
-          login
-        </Button> */}
-        <Typography sx={{ flex: 1 }} />
-        <Typography color="black">{`${user?.email} / ${claims?.role} / ${user?.uid}`}</Typography>
+        {/* <TextField
+          variant="outlined"
+          size="small"
+          placeholder="Search..."
+          sx={{ flexGrow: 1, mx: 10 }}
+          InputProps={{
+            endAdornment: (
+              <IconButton type="submit" aria-label="search">
+                <SearchIcon />
+              </IconButton>
+            ),
+          }}
+        /> */}
+        <Box sx={{ width: "50px" }} />
+        <Search />
+        <Box sx={{ flexGrow: 1 }} />
 
-        <Button
-          variant="contained"
-          style={{ marginLeft: 30 }}
-          onClick={() => logout()}
-        >
-          LOGOUT
-        </Button>
+        {/* <Typography color="black">{`${user?.email} / ${claims?.role} / ${user?.uid}`}</Typography> */}
+        <AccountMenu />
       </Toolbar>
       {loading && <LinearProgress />}
     </AppBar>

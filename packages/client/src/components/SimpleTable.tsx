@@ -53,11 +53,7 @@ export function SimpleTable<T extends RowType>({
                     {action.label}
                   </Button>
                 ) : action.link ? (
-                  <Link
-                    key={"link-" + action.label}
-                    to={action.link(row)}
-                    target="_blank"
-                  >
+                  <Link key={"link-" + action.label} to={action.link(row)}>
                     <Button>{action.label}</Button>
                   </Link>
                 ) : (
