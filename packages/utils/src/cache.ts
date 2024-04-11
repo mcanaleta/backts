@@ -23,16 +23,20 @@ export class Lazy<T> {
   }
 
   async get(): Promise<T> {
-    if (!this._v) {
-      if (!this._promise) {
-        this._promise = this.factory().then((value) => {
-          this._v = value;
-          this._promise = undefined; // Reset promise so factory can be called again if needed
-          return value;
-        });
-      }
+    if (this._v) {
+      // case 1: value is already available
+      return this._v;
+    }
+    if (this._promise) {
+      // case 2: value is being fetched
       return this._promise;
     }
-    return this._v;
+    // case 3: value is not available and not being fetched
+    this._promise = this.factory().then((value) => {
+      this._v = value;
+      this._promise = undefined; // Reset promise so factory can be called again if needed
+      return value;
+    });
+    return this._promise;
   }
 }
