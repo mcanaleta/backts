@@ -39,7 +39,7 @@
         "pnpm": "^8.15.3",
         "tsup": "^8.0.2",
         "typescript": "^5.2.2",
-        "vite": "^5.1.4"
+        "vite": "^5.1.7"
     },
     "peerDependencies": {
         "@emotion/react": "^11.11.3",
