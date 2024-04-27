@@ -1,12 +1,11 @@
 // import { useGlobalContext } from "@client/contexts/global.context";
+import { useGlobalContext } from "@client/contexts/global.context";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { Box, LinearProgress } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { BackTsProps } from "..";
-import { useGlobalContext } from "@client/contexts/global.context";
-import { Box, IconButton, LinearProgress, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountMenu from "./accountmenu";
 import { Search } from "./search";
 
