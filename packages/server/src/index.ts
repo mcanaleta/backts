@@ -64,3 +64,4 @@ export * from "./database";
 export * from "./requestcontext";
 export * from "./handlers/exceptions";
 export * from "./lib/nodehttp";
+export * from "./lib/rpc";

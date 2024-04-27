@@ -2,12 +2,12 @@ import { Lazy } from "backts-utils";
 import { BackTsServer, FirebaseConfig } from "..";
 import { httpReadJsonBody } from "../lib/nodehttp";
 import { handleUnauthorized } from "./exceptions";
-import { RequestContext } from "../requestcontext";
+import { AnyRequestContext, RequestContext } from "../requestcontext";
 import loginTemplate from "../assets/login.html?raw";
 
 // import { fbAuth } from "./fb";
 export function createAuthHandler(config: BackTsServer<any>) {
-  async function authHandler(reqctx: RequestContext) {
+  async function authHandler(reqctx: AnyRequestContext) {
     if (reqctx.pathParts[1] == "login" && reqctx.isPost) {
       return await handleLogin(reqctx);
     } else if (reqctx.pathParts[1] == "logout" && reqctx.isPost) {
@@ -16,7 +16,7 @@ export function createAuthHandler(config: BackTsServer<any>) {
     return await handleLoginPage(reqctx);
   }
 
-  async function handleLogin(reqctx: RequestContext) {
+  async function handleLogin(reqctx: AnyRequestContext) {
     async function getRoleFromDb(email: string) {
       const dbUser = await reqctx.appContext.models.usersModel.col
         .doc(email)
@@ -71,14 +71,14 @@ export function createAuthHandler(config: BackTsServer<any>) {
     return loginContents;
   });
 
-  async function handleLoginPage(reqctx: RequestContext) {
+  async function handleLoginPage(reqctx: AnyRequestContext) {
     const { res } = reqctx;
     res.setHeader("Content-Type", "text/html");
     res.write(await loginContents.get());
     res.end();
   }
 
-  async function handleLogout(reqctx: RequestContext) {
+  async function handleLogout(reqctx: AnyRequestContext) {
     const { res } = reqctx;
     res.setHeader(
       "Set-Cookie",
