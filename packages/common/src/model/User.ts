@@ -1,10 +1,10 @@
-import * as yup from "yup";
+import { z } from "zod";
 
-export const userSchema = yup.object({
-  email: yup.string().email().required("Email is required"),
-  firebaseUId: yup.string().nullable(),
-  displayName: yup.string().required("Display name is required"),
-  role: yup.mixed().oneOf(["editor", "admin", "sysadmin", "user"]),
+export const userSchema = z.object({
+  email: z.string().email().min(1, "Email is required"),
+  firebaseUId: z.string().nullable(),
+  displayName: z.string().min(1, "Display name is required"),
+  role: z.enum(["editor", "admin", "sysadmin", "user"]),
 });
 
-export type User = yup.InferType<typeof userSchema>;
+export type User = z.infer<typeof userSchema>;
