@@ -1,6 +1,6 @@
 {
   "name": "backts-utils",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Marc Canaleta",
   "description": "Backts framework utils package",
   "license": "ISC",
@@ -30,6 +30,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "yup": "^1.4.0"
+    "zod": "^3.22.4"
   }
 }
